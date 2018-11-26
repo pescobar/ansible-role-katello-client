@@ -1,0 +1,76 @@
+---
+# tasks file for ansible-role-katello-agent
+
+- name: install subscription-manager
+  yum:
+    name: subscription-manager
+    state: installed
+
+- name: install epel-release rpm to disable it afterwards
+  yum:
+    name: epel-release
+    state: installed
+
+- name: install the katello ca-consumer
+  yum:
+    name: http://{{ katello_hostname }}/pub/katello-ca-consumer-latest.noarch.rpm
+    disable_gpg_check: yes
+
+- name: register the node with katello
+  redhat_subscription:
+    activationkey: "{{ katello_activationkey }}"
+    org_id: "{{ katello_org_id }}"
+    force_register: "{{ katello_force_register }}"
+    state: present
+
+- name: disable defaults yum repos - base
+  yum_repository:
+    name: base
+    description: default base yum repo
+    mirrorlist: http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=os&infra=$infra
+    enabled: false
+  notify: yum-clean-metadata
+
+- name: disable defaults yum repos - update
+  yum_repository:
+    name: updates
+    description: default updates yum repo
+    mirrorlist: http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=updates&infra=$infra
+    enabled: false
+  notify: yum-clean-metadata
+
+- name: disable defaults yum repos - extras
+  yum_repository:
+    name: extras
+    description: default extras yum repo
+    mirrorlist: http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=updates&infra=$infra
+    enabled: false
+  notify: yum-clean-metadata
+
+- name: disable upstream epel repo
+  yum_repository:
+    name: epel
+    description: epel
+    metalink: https://mirrors.fedoraproject.org/metalink?repo=epel-7&arch=$basearch
+    enabled: false
+  notify: yum-clean-metadata
+
+- name: Disable the yum fastest mirror plugin
+  lineinfile:
+    dest: /etc/yum/pluginconf.d/fastestmirror.conf
+    backup: no
+    regexp: "^enabled"
+    line: "enabled=0"
+
+  # https://theforeman.org/plugins/katello/3.9/installation/clients.html
+  # https://yum.theforeman.org/client/1.20/el7/x86_64/
+- name: install katello-agent (this is provided by the katello repos)
+  yum:
+    name: katello-agent
+    state: installed
+
+- name: start and enable goferd daemon
+  service:
+    name: goferd
+    state: started
+    enabled: true

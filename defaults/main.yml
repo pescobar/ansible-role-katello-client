@@ -1,0 +1,7 @@
+---
+# defaults file for ansible-role-katello-agent
+
+katello_hostname: katello.example.com
+katello_activationkey: compute_nodes_production
+katello_org_id: sciCORE
+katello_force_register: false
