@@ -1,4 +1,7 @@
-katello-agent
+[![Build Status](https://travis-ci.org/pescobar/ansible-role-katello-agent.svg?branch=master)](https://travis-ci.org/pescobar/ansible-role-katello-agent)
+[![Ansible Galaxy](https://img.shields.io/badge/galaxy-pescobar.katello_agent-blue.svg)](https://galaxy.ansible.com/pescobar/katello_agent)
+
+pescobar.katello_agent
 =========
 
 register a node with Katello
@@ -18,7 +21,7 @@ Example Playbook
 
     - hosts: servers
       roles:
-         - { role: katello-agent }
+         - { role: katello_agent }
 
 License
 -------
