@@ -22,8 +22,9 @@
     org_id: "{{ katello_org_id }}"
     force_register: "{{ katello_force_register }}"
     state: present
+  notify: yum-clean-metadata
 
-- name: disable defaults yum repos - base
+- name: disable default yum repos - base
   yum_repository:
     name: base
     file: CentOS-Base
@@ -34,7 +35,7 @@
     enabled: false
   notify: yum-clean-metadata
 
-- name: disable defaults yum repos - updates
+- name: disable default yum repos - updates
   yum_repository:
     name: updates
     file: CentOS-Base
@@ -45,7 +46,7 @@
     enabled: false
   notify: yum-clean-metadata
 
-- name: disable defaults yum repos - extras
+- name: disable default yum repos - extras
   yum_repository:
     name: extras
     file: CentOS-Base
@@ -86,3 +87,6 @@
     name: goferd
     state: started
     enabled: true
+
+# make sure we clean yum metadata at the end of this role if something changed
+- meta: flush_handlers
