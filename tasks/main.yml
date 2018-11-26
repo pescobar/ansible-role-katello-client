@@ -23,7 +23,7 @@
     force_register: "{{ katello_force_register }}"
     state: present
 
-- name: disable defaults yum repos - base
+- name: disable default yum repos - base
   yum_repository:
     name: base
     description: default base yum repo
@@ -31,7 +31,7 @@
     enabled: false
   notify: yum-clean-metadata
 
-- name: disable defaults yum repos - update
+- name: disable default yum repos - update
   yum_repository:
     name: updates
     description: default updates yum repo
@@ -39,7 +39,7 @@
     enabled: false
   notify: yum-clean-metadata
 
-- name: disable defaults yum repos - extras
+- name: disable default yum repos - extras
   yum_repository:
     name: extras
     description: default extras yum repo
@@ -64,7 +64,7 @@
 
   # https://theforeman.org/plugins/katello/3.9/installation/clients.html
   # https://yum.theforeman.org/client/1.20/el7/x86_64/
-- name: install katello-agent (this is provided by the katello repos)
+- name: install katello-agent (this should be provided by your katello repos)
   yum:
     name: katello-agent
     state: installed
