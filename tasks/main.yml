@@ -1,5 +1,5 @@
 ---
-# tasks file for ansible-role-katello-agent
+# tasks file for scicore-katello-register
 
 - name: install subscription-manager
   yum:
@@ -23,35 +23,47 @@
     force_register: "{{ katello_force_register }}"
     state: present
 
-- name: disable default yum repos - base
+- name: disable defaults yum repos - base
   yum_repository:
     name: base
+    file: CentOS-Base
     description: default base yum repo
     mirrorlist: http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=os&infra=$infra
+    gpgcheck: true
+    gpgkey: file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
     enabled: false
   notify: yum-clean-metadata
 
-- name: disable default yum repos - update
+- name: disable defaults yum repos - updates
   yum_repository:
     name: updates
+    file: CentOS-Base
     description: default updates yum repo
     mirrorlist: http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=updates&infra=$infra
+    gpgcheck: true
+    gpgkey: file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
     enabled: false
   notify: yum-clean-metadata
 
-- name: disable default yum repos - extras
+- name: disable defaults yum repos - extras
   yum_repository:
     name: extras
+    file: CentOS-Base
     description: default extras yum repo
-    mirrorlist: http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=updates&infra=$infra
+    mirrorlist: http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=extras&infra=$infra
+    gpgcheck: true
+    gpgkey: file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
     enabled: false
   notify: yum-clean-metadata
 
 - name: disable upstream epel repo
   yum_repository:
     name: epel
+    file: epel
     description: epel
     metalink: https://mirrors.fedoraproject.org/metalink?repo=epel-7&arch=$basearch
+    gpgcheck: 1
+    gpgkey: file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
     enabled: false
   notify: yum-clean-metadata
 
@@ -64,7 +76,7 @@
 
   # https://theforeman.org/plugins/katello/3.9/installation/clients.html
   # https://yum.theforeman.org/client/1.20/el7/x86_64/
-- name: install katello-agent (this should be provided by your katello repos)
+- name: install katello-agent (this is provided by the katello repos)
   yum:
     name: katello-agent
     state: installed
