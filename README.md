@@ -21,7 +21,7 @@ Example Playbook
 
     - hosts: servers
       roles:
-         - { role: katello_agent }
+         - { role: pescobar.katello_agent }
 
 License
 -------
@@ -32,7 +32,7 @@ GPLv3
 Molecule Tests
 -------
 The repo includes some molecule tests to check the complete process or registering a node.
-Once you define the required variables you can try `molecule test` to verify it's working
+Once you define the required variables you can try `molecule test` to verify it's working.
 Travis-CI in github only does a syntax check.
 
 
