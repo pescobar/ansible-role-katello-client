@@ -6,7 +6,7 @@ pescobar.katello_agent
 
 register a node with Katello
 
-** this role would only disable the default yum repos in CentOS . It's not tested with RedHat **
+**this role would only disable the default yum repos in CentOS . It's not tested with RedHat**
 
 Role Variables
 --------------
