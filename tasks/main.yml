@@ -1,6 +1,15 @@
 ---
 # tasks file for scicore-katello-register
 
+# by default we don't add the upstream repo because we assume our katello instance
+# will provide the foreman-client rpms
+# set var "katello_client_yum_repo_add=true" if you want to use upstream repos for foreman-client
+- name: Add the foreman-client yum repo
+  yum:
+    name: "{{ katello_client_yum_repo_rpm }}"
+    state: installed
+  when: katello_client_yum_repo_add
+
 - name: install subscription-manager
   yum:
     name: subscription-manager
