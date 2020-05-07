@@ -5,3 +5,5 @@ katello_hostname: katello.example.com
 katello_activationkey: compute_nodes_production
 katello_org_id: sciCORE
 katello_force_register: false
+
+katello_install_agent: false

@@ -75,18 +75,23 @@
     regexp: "^enabled"
     line: "enabled=0"
 
-  # https://theforeman.org/plugins/katello/3.9/installation/clients.html
-  # https://yum.theforeman.org/client/1.20/el7/x86_64/
-- name: install katello-agent (this is provided by the katello repos)
-  yum:
-    name: katello-agent
-    state: installed
+- name: Install katello agent (if you are not using the foreman remote-exec plugin or ansible)
+  block:
 
-- name: start and enable goferd daemon
-  service:
-    name: goferd
-    state: started
-    enabled: true
+    # https://theforeman.org/plugins/katello/3.15/installation/clients.html
+    # https://yum.theforeman.org/client/2.0/el7/x86_64/
+    - name: install katello-agent (this is provided by the katello repos)
+      yum:
+        name: katello-agent
+        state: installed
+
+    - name: start and enable goferd daemon
+      service:
+        name: goferd
+        state: started
+        enabled: true
+
+  when: katello_install_agent
 
 # make sure we clean yum metadata at the end of this role if something changed
 - meta: flush_handlers
