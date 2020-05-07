@@ -84,6 +84,16 @@
     regexp: "^enabled"
     line: "enabled=0"
 
+# make sure we clean yum metadata after updating yum repos
+- meta: flush_handlers
+
+- name: Install katello-host-tools and katello-host-tools-tracer
+  yum:
+    name:
+      - katello-host-tools
+      - katello-host-tools-tracer
+    state: installed
+
 - name: Install katello agent (if you are not using the foreman remote-exec plugin or ansible)
   block:
 
@@ -101,6 +111,3 @@
         enabled: true
 
   when: katello_install_agent
-
-# make sure we clean yum metadata at the end of this role if something changed
-- meta: flush_handlers
