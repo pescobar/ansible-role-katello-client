@@ -87,12 +87,16 @@
 # make sure we clean yum metadata after updating yum repos
 - meta: flush_handlers
 
-- name: Install katello-host-tools and katello-host-tools-tracer
+- name: Install katello-host-tools
   yum:
-    name:
-      - katello-host-tools
-      - katello-host-tools-tracer
+    name: katello-host-tools
     state: installed
+
+- name: Install katello-host-tools-tracer
+  yum:
+    name: katello-host-tools-tracer
+    state: installed
+  when: katello_install_host_tools_tracer
 
 - name: Install katello agent (if you are not using the foreman remote-exec plugin or ansible)
   block:

@@ -7,6 +7,7 @@ katello_org_id: sciCORE
 katello_force_register: false
 
 katello_install_agent: false
+katello_install_host_tools_tracer: true
 
 katello_client_yum_repo_add: false
 katello_client_yum_repo_rpm: https://yum.theforeman.org/client/2.0/el7/x86_64/foreman-client-release.rpm
