@@ -1,7 +1,7 @@
-[![Build Status](https://travis-ci.org/pescobar/ansible-role-katello-agent.svg?branch=master)](https://travis-ci.org/pescobar/ansible-role-katello-agent)
-[![Ansible Galaxy](https://img.shields.io/badge/galaxy-pescobar.katello_agent-blue.svg)](https://galaxy.ansible.com/pescobar/katello_agent)
+[![Build Status](https://travis-ci.org/pescobar/ansible-role-katello-client.svg?branch=master)](https://travis-ci.org/pescobar/ansible-role-katello-client)
+[![Ansible Galaxy](https://img.shields.io/badge/galaxy-pescobar.katello_client-blue.svg)](https://galaxy.ansible.com/pescobar/katello_client)
 
-pescobar.katello_agent
+pescobar.katello_client
 =========
 
 register a node with Katello

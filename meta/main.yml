@@ -2,9 +2,9 @@
 
 galaxy_info:
 
-  role_name: katello-agent
+  role_name: katello-client
   author: pescobar
-  description: Installs and register a katello-agent
+  description: Register a katello client with a katello server
   company: sciCORE
   license: GPLv3
   min_ansible_version: 2.4
