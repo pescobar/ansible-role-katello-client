@@ -2,7 +2,7 @@
 
 galaxy_info:
 
-  role_name: katello-client
+  role_name: katello_client
   author: pescobar
   description: Register a katello client with a katello server
   company: sciCORE
