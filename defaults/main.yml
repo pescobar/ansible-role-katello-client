@@ -51,3 +51,7 @@ katello_client_repos_to_update:
     gpgcheck: 1
     gpgkey: file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
     enabled: false
+
+katello_client_cronjob: true
+katello_client_cronjob_hour: 5
+katello_client_cronjob_minute: 0
