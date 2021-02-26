@@ -79,7 +79,8 @@
         state: started
         enabled: true
 
-  when: katello_install_agent
+  when: katello_client_install_agent
+
 
 - name: Add cron job to execute katello-tracer-upload every day
   ansible.builtin.cron:
