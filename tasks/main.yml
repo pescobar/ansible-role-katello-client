@@ -28,21 +28,22 @@
   redhat_subscription:
     activationkey: "{{ katello_client_activationkey }}"
     org_id: "{{ katello_client_org_id }}"
-    rhsm_baseurl: "{{ }}"
+    rhsm_baseurl: "{{ katello_client_rhsm_baseurl }}"
     force_register: "{{ katello_client_force_register }}"
     state: present
   notify: yum-clean-metadata
 
-- name: Update default yum repos to disable them
+- name: Update config for default yum repos to disable them
   yum_repository:
     name: "{{ item.name }}"
     file: "{{ item.file }}"
-    description: "{{ item.description }}"
-    mirrorlist: "{{ item.mirrorlist }}"
-    gpgcheck: "{{ item.gpgcheck }}"
-    gpgkey: "{{ item.gpgkey }}"
+    description: "{{ item.description | default(omit) }}"
+    mirrorlist: "{{ item.mirrorlist | default(omit) }}"
+    metalink: "{{ item.metalink | default(omit) }}"
+    gpgcheck: "{{ item.gpgcheck | default(omit) }}"
+    gpgkey: "{{ item.gpgkey | default(omit) }}"
     enabled: "{{ item.enabled }}"
-  loop: katello_client_repos_to_update
+  loop: "{{ katello_client_repos_to_update }}"
   notify: yum-clean-metadata
 
 - name: Disable the yum fastest mirror plugin
@@ -56,17 +57,12 @@
 # make sure we clean yum metadata after updating yum repos
 - meta: flush_handlers
 
-- name: Install katello-host-tools
+- name: Install katello-client packages
   yum:
-    name: katello-host-tools
+    name: "{{ katello_client_extra_packages }}"
     state: installed
 
-- name: Install katello-host-tools-tracer
-  yum:
-    name: katello-host-tools-tracer
-    state: installed
-  when: katello_install_host_tools_tracer
-
+# katello-agent is deprecated. You probably don't want this
 - name: Install katello agent (if you are not using the foreman remote-exec plugin or ansible)
   block:
 
@@ -84,3 +80,12 @@
         enabled: true
 
   when: katello_client_install_agent
+
+
+- name: Add cron job to execute katello-tracer-upload every day
+  ansible.builtin.cron:
+    name: "execute katello-tracer-upload"
+    hour: "{{ katello_client_cronjob_hour }}"
+    minute: "{{ katello_client_cronjob_minute }}"
+    job: "/sbin/katello-tracer-upload > /dev/null 2>&1"
+  when: katello_client_cronjob
