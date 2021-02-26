@@ -83,4 +83,4 @@
         state: started
         enabled: true
 
-  when: katello_install_agent
+  when: katello_client_install_agent
