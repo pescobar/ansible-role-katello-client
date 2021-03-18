@@ -55,8 +55,8 @@
     line: "enabled=0"
   when: katello_client_disable_yum_fastest_mirror_plugin
 
-# make sure we clean yum metadata after updating yum repos
-- meta: flush_handlers
+- name: Trigger handlers to clean yum metadata after updating the yum repos
+  meta: flush_handlers
 
 - name: Install katello-client packages
   yum:
