@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/pescobar/ansible-role-katello-client.svg?branch=master)](https://travis-ci.org/pescobar/ansible-role-katello-client)
+[![Build Status](https://travis-ci.org/pescobar/ansible-role-katello-client.svg?branch=master)](https://travis-ci.org/github/pescobar/ansible-role-katello-agent)
 [![Ansible Galaxy](https://img.shields.io/badge/galaxy-pescobar.katello_client-blue.svg)](https://galaxy.ansible.com/pescobar/katello_client)
 
 pescobar.katello_client
