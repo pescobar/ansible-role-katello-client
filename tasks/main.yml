@@ -23,6 +23,7 @@
   yum:
     name: http://{{ katello_client_katello_server_hostname }}/pub/katello-ca-consumer-latest.noarch.rpm
     disable_gpg_check: yes
+    disable_plugin: "product-id"
 
 - name: register the node with katello
   redhat_subscription:
