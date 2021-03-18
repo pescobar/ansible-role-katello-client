@@ -1,6 +1,11 @@
 ---
 # tasks file for scicore-katello-register
 
+- name: install epel-release rpm to disable it afterwards
+  yum:
+    name: epel-release
+    state: installed
+
 # set var "katello_client_yum_repo_add=true" if you want to use upstream repos for foreman-client
 # by default we don't add the upstream repo because we assume our katello instance will provide the foreman-client rpms
 - name: Add the foreman-client yum repo
@@ -12,11 +17,6 @@
 - name: install subscription-manager
   yum:
     name: subscription-manager
-    state: installed
-
-- name: install epel-release rpm to disable it afterwards
-  yum:
-    name: epel-release
     state: installed
 
 - name: install the katello ca-consumer
