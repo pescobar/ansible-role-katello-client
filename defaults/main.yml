@@ -53,5 +53,5 @@ katello_client_repos_to_update:
     enabled: false
 
 katello_client_cronjob: true
-katello_client_cronjob_hour: 5
-katello_client_cronjob_minute: 0
+katello_client_cronjob_hour: "5"
+katello_client_cronjob_minute: "0"
